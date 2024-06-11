@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var projectsRouter = require('./routes/projects');
+var coursesRouter = require('./routes/courses');
 
 var mongoose = require("mongoose");
 var configs = require("./configs/globals");
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/projects', projectsRouter);
+app.use('/courses', coursesRouter);
 
 mongoose.connect(configs.ConnectionStrings.MongoDB, {
 	useNewUrlParser: true,
