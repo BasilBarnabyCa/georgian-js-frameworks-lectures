@@ -12,6 +12,11 @@ var mongoose = require("mongoose");
 var configs = require("./configs/globals");
 var hbs = require("hbs");
 
+// Import Passport
+var passport = require("passport")
+var session = require("express-session")
+var User = require("./models/user")
+
 var app = express();
 
 // view engine setup
@@ -23,6 +28,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Configure Session
+app.use(session({
+	  secret: "projecttracker2024",
+	  resave: false,
+	  saveUninitialized: true
+})); 
+
+// Add secret key
+
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Initialize passport strategy
+passport.use(User.createStrategy());
+
+// Configure passport to serialize and deserialize user data
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use("/", indexRouter);
 app.use("/projects", projectsRouter);

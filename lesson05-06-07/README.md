@@ -143,3 +143,5 @@
     - Add table headers
     - Add individual elements
 - Open a browser and navigate to http://localhost:3000/projects to verify
+
+# LESSON 06
